@@ -37,7 +37,18 @@
     function P() {}
     console.log(P.prototype)
     console.log(P.prototype.constructor === P) // true
-
+    // 由于instanceof检查整个原型链，因此同一个实例对象，可能会对多个构造函数都返回true。
+    var d = new Date();
+    d instanceof Date // true
+    d instanceof Object // true
+    // instanceof运算符的一个用处，是判断值的类型。
+    var x = [1, 2, 3];
+    var y = {};
+    x instanceof Array // true
+    y instanceof Object // true
+    // 注意，instanceof运算符只能用于对象，不适用原始类型的值。
+    let s = 'hello'
+    console.log(s instanceof String)
 </script>
 </body>
 </html>
