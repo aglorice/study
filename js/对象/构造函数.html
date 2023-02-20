@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>flex.html</title>
+<body>
+<script>
+    // 构造函数的额名字第一个字母通常大写
+    // 构造函数就是一个普通函数，但它具有自己的特征和用法
+    // 所谓的构造函数就是通过你的要求构造出你想要的结果
+    // 构造函数的特点有两个
+    // 1.函数体内部使用了this关键字，代表所要生成的对象实例
+    // 2.生成对象的时候，必须使用new命令
+    let Vehicle = function (){
+        this.name = '张三'
+    }
+
+    // new命令
+    // new命令的基础用法
+    let MyNew = function (){
+        this.say_hello = function (){
+            console.log('hello world')
+        }
+    }
+    let mynew = new MyNew()
+    // 上述的操作就是通过new命令，让构造函数MyNew生成一个实例对象，并将结果交给mynew，mynew也就得到了构造函数中的属性
+
+    // 通过new还可以给构造函数传参
+    let MyNew_1 = function (name){
+        this.name = name
+    }
+    let mynew_1 = new MyNew_1('张三')
+    console.log(mynew_1.name) // '张三'
+
+    // new命令本身就可以执行构造函数，所以构造函数后面可以不用跟括号，两者是等价的
+
+    let mynew_2 = new MyNew_1 // 不推荐
+
+    let mynew_3 = new MyNew_1() // 推荐
+
+    // 在使用构造函数的时候，如果你忘记了使用new关键字，那么这个构造函数就会被当成普通函数一样
+    let test = MyNew_1()
+    console.log(test.name) // undefined
+
+    // 为什么这里的name为undefined，这是因为构造被当成普通函数后，这里的this指的就是window
+
+    // 为了避免这种情况的发生，在这里就有两种方式
+    // 1. 使用严格模式
+    function Fubar(foo, bar){
+        'use strict';
+        this._foo = foo;
+        this._bar = bar;
+    }
+    Fubar()
+    // TypeError: Cannot set property '_foo' of undefined
+
+    // 通过严格模式的声明，如果你错误的将构造函数当成函数使用，那么将会被不允许
+    // 在严格模式中，函数内部的this不能指向全局对象，默认等于undefined，导致不加new调用会报错（JavaScript 不允许对undefined添加属性）。
+    // 2.构造函数内部判断是否使用了new命令，如果发现没有使用，则自动帮你返回一个实例对象
+
+    function Fubar_1(foo, bar) {
+        if (!(this instanceof Fubar_1)) {
+            return new Fubar(foo, bar);
+        }
+
+        this._foo = foo;
+        this._bar = bar;
+    }
+    console.log(Fubar_1(1, 2)._foo)// 1
+    console.log((new Fubar_1(1, 2))._foo) // 1
+
+     // 重点（new命令的原理）
+    // 在我们使用new命令的时候，它实例上执行了下面几步
+    // 1. 创建一个空对象，作为将要返回的对象实例。
+    // 2. 将这个空对象的原型，指向构造函数的prototype属性。
+    // 3. 将这个空对象赋值给函数内部的this关键字。
+    // 4. 开始执行构造函数内部的代码。
+
+    // 当构造函数中有return语句的时候，我们只需要记住一点如果返回的是一个对象，则最终返回的就是这个对象，如果不是一个对象，则会返回this
+    let MyNew_2 = function (){
+        this.count = 0
+        return this.count
+    }
+    (new MyNew_2()) === 0 // false
+
+    let MyNew_3 = function (){
+        this.count = 0
+        return {count:this.count}
+    }
+    (new MyNew_3()).count === 0 // true
+
+    // new的内部流程
+
+    // new.target
+    // 函数内部可以使用new.target属性。如果当前函数是new命令调用，new.target指向当前函数，否则为undefined。
+    function f() {
+        console.log(new.target === f);
+    }
+
+    f() // false
+    new f() // true
+
+</script>
+</body>
+</html>

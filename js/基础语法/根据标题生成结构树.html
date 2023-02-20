@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>flex.html</title>
+<body>
+<script>
+    const data = [
+        {
+            indent: 0,
+            lineIndex: "1",
+            title: "1"
+        },
+        {
+            indent: 0,
+            lineIndex: "12",
+            title: "0"
+        },
+        {
+            indent: 1,
+            lineIndex: "12",
+            title: "1"
+        },
+        {
+            indent: 1,
+            lineIndex: "123423",
+            title: "1"
+        },
+        {
+            indent: 2,
+            lineIndex: "12",
+            title: "2"
+        },
+        {
+            indent: 3,
+            lineIndex: "12",
+            title: "3"
+        },
+        {
+            indent: 0,
+            lineIndex: "18",
+            title: "0"
+        },
+        {
+            indent: 2,
+            lineIndex: "343",
+            title: "2"
+        },
+        {
+            indent: 2,
+            lineIndex: "343",
+            title: "2"
+        },
+        {
+            indent: 1,
+            lineIndex: "343",
+            title: "1"
+        },
+    ];
+
+    /**
+     *
+     */
+    function transformed_data (_data,new_data = [],new_data_list = []){
+        new_data = _data[0];
+        new_data.label = _data[0].title
+        if(_data.length === 1){
+            new_data.children = null;
+        }else {
+            _data.forEach((item)=>{
+                item.label = item.title
+                new_data_list.push(item)
+            })
+            new_data.children = new_data_list.splice(1)
+        }
+        return new_data
+    }
+
+    function dispatch_data (_data,new_data=[]){
+        _data.forEach((item)=>{
+            new_data.push(transformed_data(item))
+        })
+        return new_data
+    }
+
+    /**
+     * 将标题数据根据标题大小分割开
+     * @param {object}data
+     * @param {number}indent
+     * @returns {*[]}
+     */
+    function split_data (data,indent){
+        let rets = [];
+
+        data.forEach((item,index,_data)=>{
+            if(item.indent === indent){
+                rets.push(index)
+            }
+        })
+
+        let newArr = [] //首先创建一个新的空数组。用来存放分割好的数组
+        for(let index = 0;index<rets.length;index++){
+            newArr.push(data.slice(rets[index], rets[index+1]));
+        }
+        return newArr
+    }
+
+
+    console.log(dispatch_data(split_data(data,0)))
+    //console.log(transformed_data(data))
+</script>
+</body>
+</html>

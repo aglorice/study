@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>flex.html</title>
+ <body>
+<script>
+    // 由于对象的属性可以赋给另一个对象，所以属性所在的当前对象是可变的，即this的指向是可变的。
+    // let A = {
+    //     name: '张三',
+    //     describe: function () {
+    //        console.log(this.name)
+    //     }
+    // };
+    //
+    // let B = {
+    //     name: '李四'
+    // };
+    //
+    // B.describe = A.describe;
+    // B.describe()
+    // // "姓名：李四"
+    //
+    // // 函数内部使用了this关键字，但是随着f所在的对象不同，this的指向会动态的改变
+    // function f() {
+    //     console.log(this.name)
+    // }
+    //
+    // let A_1 = {
+    //     name: '张三',
+    //     describe: f
+    // };
+    //
+    // let B_1 = {
+    //     name: '李四',
+    //     describe: f
+    // };
+    //
+    // A_1.describe() // "姓名：张三"
+    // B_1.describe() // "姓名：李四"
+    //
+    // // 只要函数被赋给另一个变量，this的指向就会改变
+    // let A_2 = {
+    //     name: '张三',
+    //     describe: function () {
+    //         return '姓名：'+ this.name;
+    //     }
+    // };
+    //
+    // let name = '李四';
+    // let f_1 = A_2.describe;
+    // f_1() // "姓名：李四"
+    // // 在上述代码中A_2.describe被赋值给了f_1,但是运行的时候是在window环境中运行的，这时候的this是指向window的
+    //
+    // let a = {
+    //     p: 'Hello',
+    //     b: {
+    //         m: function() {
+    //             console.log(this.p);
+    //         }
+    //     }
+    // };
+    //
+    // a.b.m() // undefined
+    // // 之所以结果为undefined，如果this所在的方法不在对象的第一层，这时this只是指向当前一层的对象，而不会继承更上面的层。
+    // // 所以这里的this应该指向的a.b而不是a中，所以最后的结果为undefined,上述的代码就相当于执行了下面的代码
+    //
+    // let b_1 = {
+    //     m: function() {
+    //         console.log(this.p);
+    //     }
+    // };
+    //
+    // let a_1 = {
+    //     p: 'Hello',
+    //     b_1: b_1
+    // };
+    //
+    // (a_1.b_1).m() // 等同于 b.m()
+
+    // 避免多层 this
+    // 避免数组处理方法中的 this
+    // var n = 123;
+    // var obj = { n: 456 };
+    //
+    // function a() {
+    //     console.log(this.n);
+    // }
+    //
+    // a.call() // 123
+    // a.call(null) // 123
+    // a.call(undefined) // 123
+    // a.call(window) // 123
+    // a.call(obj) // 456
+    //
+    // //Function.prototype.bind()
+    // var d = new Date();
+    // d.getTime() // 1481869925657
+    //
+    // var print = d.getTime;
+    // print.call(d)// Uncaught TypeError: this is not a Date object.
+
+    function person(){
+        console.log(this.name)
+    }
+
+    let sb = {name:'张三'}
+
+    Function.prototype.newCall = function (sb,...args){
+        console.log(this)
+        sb.fn = this
+        sb.fn(...args)
+        delete sb.fn
+    }
+
+
+    person.newCall(sb)
+
+    var slice = Function.prototype.call.bind(Array.prototype.slice);
+    console.log(slice([1, 2, 3], 0, 1)) // [1]
+    console.log(Array.prototype.slice.call([1, 2, 3], 0, 1))
+</script>
+
+<input type="text" name="age" size=3 onChange="validate(this, 18, 99);">
+
+<script>
+    //上面代码是一个文本输入框，每当用户输入一个值，就会调用onChange回调函数，验证这个值是否在指定范围。浏览器会向回调函数传入当前对象，因此this就代表传入当前对象（即文本框），然后就可以从this.value上面读到用户的输入值。
+    function validate(obj, lowval, hival){
+        if ((obj.value < lowval) || (obj.value > hival))
+            console.log('Invalid Value!');
+    }
+</script>
+</body>
+</html>

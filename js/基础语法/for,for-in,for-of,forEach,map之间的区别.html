@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>for,for-in,for-of,forEach,map之间的区别.html</title>
+
+</head>
+<body>
+
+<script type="text/javascript">
+    // 1.for
+    for(let i = 0;i<10;i++){
+        console.log(i)
+    }
+    let bigSb = {
+        name:"jack",
+        age:12,
+        sex:"man"
+    }
+
+    // for-in
+    for(const propName in bigSb){
+        document.write(propName)
+    }
+
+    // for-of
+
+
+    const myArray = [
+        {
+            name:"jack",
+            age:12,
+            sex:"man"
+        },{
+            name:"jack",
+            age:12,
+            sex:"man"
+        }
+    ]
+    for(const propName of myArray){
+        console.log(propName.name)
+    }
+
+    const iterable = "boo";
+
+    for (let value of iterable) {
+        console.log(value);
+    }
+    // "b"
+    // "o"
+    // "o"
+    console.log('遍历 arguments');
+    (function () {
+        for (let argument of arguments) {
+            console.log(argument);
+        }
+    })(1, 2, 3);
+
+    // 1
+    // 2
+    // 3
+    // forEach
+    console.log('-------------------------')
+    const test = ['jack','rouse','cat','dog']
+
+    test.forEach((value,index,array)=>{
+        console.log(value,index,array)
+    })
+
+</script>
+
+</body>
+</html>

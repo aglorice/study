@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>flex.html</title>
+    <style>
+        div {
+            display: flex;
+            width: 80%;
+            /*设置主轴的方向*/
+            /*flex-direction: row;*/
+            /*flex-direction: row-reverse;*/
+            /*如果我们设置了y轴为主轴，那么x轴就是主轴*/
+
+            /*justify-content 设置主轴上的子元素排列方式*/
+            flex-direction: row;
+            /*justify-content: flex-start; 从左边对其 flex-end 从右边对其 center 居中对其 space-around 平分剩余空间 space-between 先两边贴边，在分配剩余的空间 */
+
+            /*flex布局中，默认的子元素不换行，如果装不下，它会改变子元素的宽度*/
+
+            /*align-items:设置侧轴的排列方式 适用于单行*/
+            /*align-content:设置侧轴的排列方式 适用于多行 ;*/
+
+            /*flex-flow: 是flex-direction和flex-wrap属性的符合属性;*/
+
+            /*flex布局子项常见属性*/
+            /*1.flex属性,表示子项目分配剩余空间*/
+            height: 300px;
+            flex-wrap: wrap;
+            background-color: yellow;
+            align-content: space-between;
+
+        }
+        div span {
+            width: 150px;
+            height: 100px;
+            margin: 5px;
+            background-color: peachpuff;
+        }
+
+    </style>
+<body>
+    <div>
+        <span>1</span>
+        <span>1</span>
+        <span>1</span>
+        <span>1</span>
+        <span>1</span>
+        <span>1</span>
+
+
+
+    </div>
+<script>
+    ((function () { 'use strict';
+
+        console.log('asdasdasd');
+
+    }))()
+</script>
+</body>
+</html>
