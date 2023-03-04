@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="ch-ZN">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="https://xcc.edu.cn/xy/logo.ico">
+    <link rel="stylesheet" type="text/css" href="https://www.xcc.edu.cn/xcxy/uiFramework/commonResource/css/fz_foot.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <title>西昌学院教务处</title>
+    <style>
+        /*标题*/
+        .title {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 3em;
+        }
+        .title span {
+            font-size: 2em;
+            text-align: center;
+            line-height: 2em;
+            border-bottom: skyblue solid 2px;
+        }
+        /*按钮*/
+        .more {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .more a {
+            padding: 0.2em;
+            font-size: 1.2em;
+            color: #171818;
+            background-color: #eee8e8;
+            border-radius: 0.6em;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        /*顶部导航栏*/
+        .nav {
+            position: fixed;
+            height: 20vh;
+            width: 100vw;
+            z-index: 100;
+        }
+        .nav::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            width: 100vw;
+            height: 20vh;
+            background: url('https://www.tsinghua.edu.cn/jwc/images/bgq1.png') repeat-x;
+            -webkit-background-size: auto 100%;
+            -moz-background-size: auto 100%;
+            -ms-background-size: auto 100%;
+            -o-background-size: auto 100%;
+            background-size: auto 100%;
+        }
+        .logo {
+            position: relative;
+            width: 40vw;
+            display: flex;
+            flex-direction: row;
+            margin: 1em 0 0 1em;
+        }
+        .xcxy-icon {
+            height: 4em;
+            width: auto;
+        }
+        .xcxy-text {
+            height: 2em;
+            width: auto;
+        }
+        .xcxy-text-1 {
+            display: flex;
+            flex-direction: column;
+            margin-left: 0.4em;
+        }
+        .xcxy-text-1 p {
+            color: white;
+            line-height: 2em;
+            font-size: 0.8em;
+            font-family: "Microsoft YaHei UI Light";
+        }
+        .xcxy-text-2 {
+            display: flex;
+            flex-direction: row;
+            height: 2em;
+        }
+        .xcxy-text-2 p {
+            color: white;
+            line-height: 2em;
+            font-size: 1em;
+        }
+        .ban {
+            width: 100%;
+            height: 70vh;
+            background-position: center bottom;
+            /* 背景图不平铺 */
+            background-repeat: no-repeat;
+            /* 当内容高度大于图片高度时，背景图像的位置相对于viewport固定 */
+            /* 让背景图基于容器大小伸缩 */
+            background-size: cover;
+            background-image: url("https://www.xcc.edu.cn/jwc/resource/cms/2017/09/img_pc_site/2017090115594364664.png");
+        }
+        /*中部导航栏*/
+        .context-top {
+            width: 80vw;
+            height: 4em;
+            background-color: #025483;
+            transform:translateY(-2em);
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+        }
+        .context-top ul {
+            margin-bottom: 0;
+            list-style: none;
+            display: flex;
+            flex-direction: row;
+            align-content: flex-start;
+            justify-content: flex-start;
+        }
+        .context-top ul li {
+            width: auto;
+            margin-right: 3em;
+        }
+
+        .context-top ul li a{
+
+            width: 100%;
+            height: 100%;
+            color: white;
+            line-height: 2em;
+            font-size: 1.3em;
+            float: left;
+            text-decoration: none;
+
+        }
+
+
+        .welcome-info {
+            color: white;
+            position: absolute;
+            top: 45vh;
+            margin-left: 3em;
+            padding: 1em;
+            background: rgba(0,0,0,.4);
+        }
+
+        /*搜索框*/
+        input {
+            background-color: transparent;
+            outline-style: none;
+            border: 2px solid #d2c7c7;
+            border-radius: 1.2em;
+            width: 15vw;
+            height: 2.4em;
+            padding: 0;
+            padding: 10px 15px;
+            box-sizing: border-box;
+            font-family: "Microsoft soft";
+            margin-bottom: 20px;
+        }
+        input::-webkit-input-placeholder{
+            color: #e8e7e7;
+        }
+        input:focus {
+             border-color: #222522;
+             outline: 0;
+             -webkit-box-shadow: inset 0 1px 1px rgb(143, 208, 227),
+             #e8e7e7;
+             box-shadow: inset 0 1px 1px rgba(121, 103, 103, 0.07),
+             #50504b;
+         }
+        /*搜索框*/
+        .search {
+            float: right;
+            top: 1.2em;
+            right: 1em;
+            position: fixed;
+        }
+        .search-icon {
+            color: white;
+            transform: translateX(-2.2em);
+        }
+
+        /*友情链接*/
+        .links-item ul{
+            list-style: none;
+        }
+        .links-item ul li {
+            float: left;
+            width: 25%;
+            margin-bottom: 2em;
+        }
+        .links-item ul li a {
+            display: block;
+            width: 20vw;
+            border-bottom: #ddd solid 2px;
+            text-decoration: none;
+        }
+        .links-item {
+            height: 10vh;
+            margin-bottom: 2em;
+        }
+
+        /*底部导航*/
+        .foot_top {
+            height: 20vh;
+        }
+        /*通知公告*/
+        .message {
+            width: 100vw;
+            height: 50vh;
+        }
+        .message-info {
+            width: 100vw;
+            height: 35vh;
+        }
+        .message-info ul{
+            list-style: none;
+        }
+        .message-info ul li {
+            float: left;
+            width: 50%;
+            margin-bottom: 2em;
+            padding-left: 1em;
+            border-left: #dddddd solid 2px;
+        }
+        .fl {
+            float: left;
+        }
+        .fr {
+            float: right;
+            margin-right: 3em;
+        }
+        /*教学动态*/
+        .message-tech {
+            width: 100vw;
+            height: 40vh;
+        }
+        .message-tech ul{
+            list-style: none;
+        }
+        .message-tech ul li {
+            float: left;
+            width: 50%;
+            margin-bottom: 2em;
+            padding-left: 1em;
+            border-left: #dddddd solid 2px;
+        }
+
+
+        .bm-info-item {
+            height: 35vh;
+            margin: 0 2em 0 2em;
+            text-indent: 2em;
+            font-size: 1.2em;
+            line-height: 2em;
+        }
+    </style>
+</head>
+<body>
+    <!--顶部导航-->
+    <div class="nav">
+    <!--        logo-->
+        <div class="logo">
+            <img class="xcxy-icon" src="https://img.aglorice.cn/img/202302261136407.png">
+            <div class="xcxy-text-1">
+                <div class="xcxy-text-2">
+                    <img class="xcxy-text" src="https://img.aglorice.cn/img/202302261134583.png">
+                    <p>教务处</p>
+                </div>
+                <p>XICHANG UNIVERSITY</p>
+            </div>
+            <!--        搜索框-->
+
+        </div>
+        <div class="search">
+            <input placeholder="请输入搜索信息">
+            <i class="glyphicon glyphicon-search search-icon"></i>
+        </div>
+
+    </div>
+    <!-- banner -->
+    <div class="ban">
+        <h2 class="welcome-info">西昌学院教务处欢迎您</h2>
+    </div>
+    <!--    内容区域-->
+
+
+    <div class="context-top">
+        <ul>
+            <li><a href="#">首页</a></li>
+            <li><a href="#">通知公告</a></li>
+            <li><a href="#">教学信息</a></li>
+            <li><a href="#">下载中心</a></li>
+            <li><a href="#">处长信箱</a></li>
+            <li><a href="#">其他</a></li>
+        </ul>
+    </div>
+    <!--    部门概括-->
+    <div class="bm-info">
+        <div class="title">
+            <span>部门概况</span>
+        </div>
+        <div class="bm-info-item">
+            <div class="row">
+                <div class="col-md-9">
+                    <p> 学校教务处在校长和分管校长领导下代表学校行使教学管理工作，是集本（专）科教学运行与管理、教学基本建设、教育教学质量监督与管理的职能部门。将努力为全体师生提供一个多元、优化、高效的教学与学习环境。
+
+                       　　教务处下设教学质量监督科、教务科、教材科、实践教学科和学位管理科共五个科室，现有18名工作人员，其中处级领导3名，科级领导6名。
+
+                       　　教务处主要负责专业设置、课程规划、教学安排、课务管理、学生考评、成绩管理、学籍管理与证件发放、教学条件与信息化建设、实验室及实习基地建设、学位管理、实践教学管理、教师评估及教学评价、教学发展研究与规划和教师教学咨询与协助等。
+
+                       　　与时俱进，凝聚共识。教务处将遵循规范、高效、方便的原则，秉承“师生为先、服务至上”的服务理念，着力打造办事流程更优、办理速度更快、师生满意度更高的规范化服务型部门，不断提高服务质量，努力把学校建成全国民族地区知名的、特色鲜明的高水平综合性应用技术大学。
+                    </p>
+                </div>
+
+                <img class="col-md-3" src="https://ids.xcc.edu.cn/authserver/assets/img/slide2.png">
+            </div>
+
+        </div>
+        <div class="more">
+            <a>+MORE</a>
+        </div>
+
+    </div>
+    <!--    通知公告-->
+
+    <div class="message">
+        <div class="title">
+            <span>通知公告</span>
+        </div>
+        <div class="message-info" >
+            <ul>
+                <li> <span class="fl"><a href="/jwc/tzgg96/gg/670706/index.html" onclick="void(0)" target="_blank" title="西昌学院2023年“专升本”招生简章" istitle="true">西昌学院2023年“专升本”招生简章</a></span><span class="fr">2023-02-23</span> </li>
+                <li> <span class="fl"><a href="/jwc/tzgg96/gg/668371/index.html" onclick="void(0)" target="_blank" title="西昌学院2022年12月在校生转专业学籍异动名单公示" istitle="true">西昌学院2022年12月在校生转专业学籍异动名单公示</a></span><span class="fr">2022-12-28</span> </li>
+                <li> <span class="fl"><a href="/jwc/tzgg96/tz/668301/index.html" onclick="void(0)" target="_blank" title="西昌学院召开2023年全国硕士研究生招生考试考务工作培训会" istitle="true">西昌学院召开2023年全国硕士研究生招生考试考务工作培训会</a></span><span class="fr">2022-12-22</span> </li>
+                <li> <span class="fl"><a href="/jwc/tzgg96/gg/668292/index.html" onclick="void(0)" target="_blank" title="考前须知！西昌学院考点温馨提示！" istitle="true">考前须知！西昌学院考点温馨提示！</a></span><span class="fr">2022-12-22</span> </li>
+                <li> <span class="fl"><a href="/jwc/tzgg96/gg/668021/index.html" onclick="void(0)" target="_blank" title="西昌学院2023年硕士研究生考试监督举报电话" istitle="true">西昌学院2023年硕士研究生考试监督举报电话</a></span><span class="fr">2022-12-16</span> </li>
+                <li> <span class="fl"><a href="/jwc/tzgg96/gg/667786/index.html" onclick="void(0)" target="_blank" title="西昌学院关于做好近期教学工作安排的通知" istitle="true">西昌学院关于做好近期教学工作安排的通知</a></span><span class="fr">2022-12-15</span> </li>
+                <li> <span class="fl"><a href="/jwc/tzgg96/gg/657158/index.html" onclick="void(0)" target="_blank" title="四川省2023年全国硕士研究生招生考试西昌学院考点报名信息网上确认公告" istitle="true">四川省2023年全国硕士研究生招生考试西昌学院考点报名信息网上确认公告</a></span><span class="fr">2022-10-25</span> </li>
+                <li> <span class="fl"><a href="/jwc/tzgg96/gg/656160/index.html" onclick="void(0)" target="_blank" title="西昌学院拟推荐申报2022年省级一流本科课程名单公示" istitle="true">西昌学院拟推荐申报2022年省级一流本科课程名单公示</a></span><span class="fr">2022-10-19</span> </li>
+                <li> <span class="fl"><a href="/jwc/tzgg96/gg/654759/index.html" onclick="void(0)" target="_blank" title="西昌学院2022年下半年学位外语（英日韩）考试 报名通知" istitle="true">西昌学院2022年下半年学位外语（英日韩）考试 报名通知</a></span><span class="fr">2022-10-10</span> </li>
+                <li> <span class="fl"><a href="/jwc/tzgg96/gg/654717/index.html" onclick="void(0)" target="_blank" title="西昌学院拟推荐申报2022年国家级教学成果奖名单公示" istitle="true">西昌学院拟推荐申报2022年国家级教学成果奖名单公示</a></span><span class="fr">2022-10-09</span> </li>
+            </ul>
+        </div>
+        <div class="more">
+            <a>+MORE</a>
+        </div>
+
+    </div>
+    <!--    教学动态-->
+    <div class="tech-info">
+        <div class="title">
+            <span>教学动态</span>
+        </div>
+        <div class="message-tech" >
+            <ul>
+                <li> <span class="fl"><a href="/jwc/tzgg96/gg/670706/index.html" onclick="void(0)" target="_blank" title="西昌学院2023年“专升本”招生简章" istitle="true">西昌学院2023年“专升本”招生简章</a></span><span class="fr">2023-02-23</span> </li>
+                <li> <span class="fl"><a href="/jwc/tzgg96/gg/668371/index.html" onclick="void(0)" target="_blank" title="西昌学院2022年12月在校生转专业学籍异动名单公示" istitle="true">西昌学院2022年12月在校生转专业学籍异动名单公示</a></span><span class="fr">2022-12-28</span> </li>
+                <li> <span class="fl"><a href="/jwc/tzgg96/tz/668301/index.html" onclick="void(0)" target="_blank" title="西昌学院召开2023年全国硕士研究生招生考试考务工作培训会" istitle="true">西昌学院召开2023年全国硕士研究生招生考试考务工作培训会</a></span><span class="fr">2022-12-22</span> </li>
+                <li> <span class="fl"><a href="/jwc/tzgg96/gg/668292/index.html" onclick="void(0)" target="_blank" title="考前须知！西昌学院考点温馨提示！" istitle="true">考前须知！西昌学院考点温馨提示！</a></span><span class="fr">2022-12-22</span> </li>
+                <li> <span class="fl"><a href="/jwc/tzgg96/gg/668021/index.html" onclick="void(0)" target="_blank" title="西昌学院2023年硕士研究生考试监督举报电话" istitle="true">西昌学院2023年硕士研究生考试监督举报电话</a></span><span class="fr">2022-12-16</span> </li>
+                <li> <span class="fl"><a href="/jwc/tzgg96/gg/667786/index.html" onclick="void(0)" target="_blank" title="西昌学院关于做好近期教学工作安排的通知" istitle="true">西昌学院关于做好近期教学工作安排的通知</a></span><span class="fr">2022-12-15</span> </li>
+                <li> <span class="fl"><a href="/jwc/tzgg96/gg/657158/index.html" onclick="void(0)" target="_blank" title="四川省2023年全国硕士研究生招生考试西昌学院考点报名信息网上确认公告" istitle="true">四川省2023年全国硕士研究生招生考试西昌学院考点报名信息网上确认公告</a></span><span class="fr">2022-10-25</span> </li>
+                <li> <span class="fl"><a href="/jwc/tzgg96/gg/656160/index.html" onclick="void(0)" target="_blank" title="西昌学院拟推荐申报2022年省级一流本科课程名单公示" istitle="true">西昌学院拟推荐申报2022年省级一流本科课程名单公示</a></span><span class="fr">2022-10-19</span> </li>
+                <li> <span class="fl"><a href="/jwc/tzgg96/gg/654759/index.html" onclick="void(0)" target="_blank" title="西昌学院2022年下半年学位外语（英日韩）考试 报名通知" istitle="true">西昌学院2022年下半年学位外语（英日韩）考试 报名通知</a></span><span class="fr">2022-10-10</span> </li>
+                <li> <span class="fl"><a href="/jwc/tzgg96/gg/654717/index.html" onclick="void(0)" target="_blank" title="西昌学院拟推荐申报2022年国家级教学成果奖名单公示" istitle="true">西昌学院拟推荐申报2022年国家级教学成果奖名单公示</a></span><span class="fr">2022-10-09</span> </li>
+                <li> <span class="fl"><a href="/jwc/tzgg96/gg/653172/index.html" onclick="void(0)" target="_blank" title="2023年全国硕士研究生招生考试西昌学院报考点（5116）网上报名公告" istitle="true">2023年全国硕士研究生招生考试西昌学院报考点（5116）网上报名公告</a></span><span class="fr">2022-09-22</span> </li>
+            </ul>
+
+        </div>
+        <div class="more">
+            <a>+MORE</a>
+        </div>
+    </div>
+    <!--    下载中心-->
+    <div class="download">
+        <div class="title">
+            <span>下载中心</span>
+        </div>
+        <div class="download-item">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="thumbnail">
+                            <img src="https://ids.xcc.edu.cn/authserver/assets/img/slide2.png" alt="...">
+                            <div class="caption">
+                                <h3>学生下载</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="thumbnail">
+                            <img src="https://ids.xcc.edu.cn/authserver/assets/img/slide2.png" alt="...">
+                            <div class="caption">
+                                <h3>教师下载</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="thumbnail">
+                            <img src="https://ids.xcc.edu.cn/authserver/assets/img/slide2.png" alt="...">
+                            <div class="caption">
+                                <h3>学院下载</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!--    友情链接-->
+    <div class="links">
+        <div class="title">
+            <span>友情链接</span>
+        </div>
+
+        <div class="links-item">
+            <ul>
+                <li><a href="#">西昌学院</a></li>
+                <li><a href="#">西昌学院</a></li>
+                <li><a href="#">西昌学院</a></li>
+                <li><a href="#">西昌学院</a></li>
+                <li><a href="#">西昌学院</a></li>
+            </ul>
+        </div>
+        <div class="more">
+            <a>+MORE</a>
+        </div>
+
+    </div>
+
+
+<!--底部导航栏-->
+    <div class="nav-bottom" style="margin-top:80px">
+        <div class="foot_box">
+            <div class="foot_top">
+                <div class="foot_logo fl" style="width:31%;height:137px"></div>
+
+            </div>
+        </div>
+        <div class="foot_bottom">
+            <div style="width:77%;margin:0 auto;text-align:center;min-width: 1050px;"><a style="padding:0" href="http://bszs.conac.cn/sitename?method=show&amp;id=12901FD232163C1AE053022819AC8D67" target="_blank"><img src="/xcxy/resource/cms/2017/06/dblg.gif" style="height:25px;vertical-align: middle;"></a> <a href="http://www.miibeian.gov.cn" target="_blank">蜀 ICP 备05008540号  </a><a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=51340102000022" style="text-decoration:none;height:20px;line-height:20px;"> <img src="/xcxy/resource/cms/2017/06/beian.png" style="    vertical-align: middle;"> 川公网安备 51340102000022号</a>
+
+                版权所有(c)西昌学院</div>
+        </div>
+</div>
+</body>
+</html>
